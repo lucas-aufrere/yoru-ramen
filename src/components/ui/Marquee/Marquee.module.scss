@@ -1,0 +1,46 @@
+@use 'abstracts' as *;
+
+.marquee {
+  overflow: clip;
+  color: $color-background;
+}
+
+.accent {
+  padding-block: $space-m;
+  font-size: $font-size-marquee-large;
+  background-color: $color-accent;
+}
+
+.light {
+  padding-block: $space-s;
+  font-size: $font-size-marquee-small;
+  background-color: $color-text;
+}
+
+.track {
+  display: flex;
+  inline-size: max-content;
+}
+
+.list,
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  gap: $space-marquee-gap;
+  padding-inline-end: $space-marquee-gap;
+  font-family: $font-display;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.dot {
+  inline-size: $size-marquee-dot;
+  block-size: $size-marquee-dot;
+  border-radius: $radius-pill;
+  background-color: $color-accent;
+}

@@ -1,0 +1,97 @@
+@use 'abstracts' as *;
+
+// Section pleine page, contenu centré verticalement.
+.combos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-block-size: $size-section-full;
+  padding-block: $space-section;
+  padding-inline: $space-gutter;
+  color: $color-on-light;
+  background-color: $color-surface-light;
+}
+
+.title {
+  margin-block-end: $space-stack-s;
+  font-family: $font-display;
+  font-size: $font-size-heading-xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.intro {
+  max-inline-size: $size-text-max;
+  margin-block-end: $space-stack-l;
+  font-size: $font-size-lead;
+}
+
+// Côte à côte, alignées en bas : les marges des cartes suivantes dessinent l'escalier.
+.list {
+  display: grid;
+  gap: $space-m;
+
+  @include breakpoint-up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+  }
+}
+
+// Une formule sur deux en vermillon, comme la maquette ; les autres en noir.
+.combo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-stack-m;
+  min-block-size: $size-combo-card;
+  padding: $space-stack-m;
+  border-radius: $radius-card;
+  color: $color-text;
+  background-color: $color-background;
+
+  &:nth-child(even) {
+    color: $color-on-accent;
+    background-color: $color-accent;
+  }
+
+  // Une marche de plus à chaque formule.
+  @include breakpoint-up(md) {
+    &:nth-child(2) {
+      margin-block-end: $space-combo-step;
+    }
+
+    &:nth-child(3) {
+      margin-block-end: calc(2 * $space-combo-step);
+    }
+  }
+}
+
+.seals {
+  display: flex;
+  gap: $space-2xs;
+  font-size: $font-size-combo-seals;
+}
+
+.name {
+  font-family: $font-display;
+  font-size: $font-size-title-m;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  text-transform: uppercase;
+}
+
+.contents {
+  margin-block: $space-2xs $space-stack-s;
+  font-family: $font-mono;
+  font-size: $font-size-caption;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+}
+
+.price {
+  font-family: $font-display;
+  font-size: $font-size-title-s;
+  font-weight: $font-weight-black;
+}

@@ -1,0 +1,22 @@
+@use 'abstracts' as *;
+
+// Cadre au format de la photo, sans dépasser un écran ni tomber trop bas sur mobile.
+.feast {
+  position: relative;
+  overflow: clip;
+  aspect-ratio: $ratio-feast;
+  min-block-size: $size-feast-min;
+  max-block-size: $size-feast-max;
+  inline-size: 100%;
+}
+
+// Plus haute que le cadre : la parallaxe consomme ce débord sans jamais révéler de bord vide.
+.media {
+  position: absolute;
+  inset-block: calc(-1 * $size-parallax-bleed);
+  inset-inline: 0;
+}
+
+.image {
+  object-fit: cover;
+}

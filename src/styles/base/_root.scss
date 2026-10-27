@@ -1,0 +1,13 @@
+@use 'abstracts' as *;
+
+:root {
+  color-scheme: dark;
+
+  // Les ancres ne s'arrêtent pas sous le header fixe.
+  scroll-padding-block-start: $size-header-offset;
+}
+
+:focus-visible {
+  outline: $border-width-medium solid $color-text;
+  outline-offset: $space-3xs;
+}

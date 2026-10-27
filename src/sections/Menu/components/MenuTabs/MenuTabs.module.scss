@@ -1,0 +1,79 @@
+@use 'abstracts' as *;
+
+// Mobile : catégories en ligne au-dessus des plats. Desktop : catégories en colonne à gauche.
+.menuTabs {
+  display: grid;
+  gap: $space-stack-l;
+
+  @include breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: $space-section;
+    align-items: start;
+  }
+}
+
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs $space-m;
+
+  @include breakpoint-up(lg) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.tab {
+  padding: 0;
+  border: 0;
+  font-family: $font-display;
+  font-size: $font-size-menu-tab;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $color-text;
+  text-align: start;
+  text-transform: uppercase;
+  background: none;
+  cursor: pointer;
+  transition: color $duration-fast $ease-out-expo;
+
+  &[aria-selected='true'] {
+    color: $color-accent;
+  }
+
+  @include hover {
+    color: $color-accent;
+  }
+}
+
+.item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: $space-m;
+  padding-block: $space-stack-s;
+  border-block-end: $border-width-thin solid $color-border-subtle;
+}
+
+.itemName {
+  margin-block-end: $space-3xs;
+  font-family: $font-display;
+  font-size: $font-size-title-s;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  text-transform: uppercase;
+}
+
+.itemDescription {
+  grid-column: 1;
+  max-inline-size: $size-text-max;
+  font-size: $font-size-body;
+  color: $color-text-muted;
+}
+
+// Prix aligné à droite, en face du nom du plat.
+.itemPrice {
+  grid-area: 1 / 2;
+  font-family: $font-mono;
+  font-size: $font-size-label;
+  white-space: nowrap;
+}

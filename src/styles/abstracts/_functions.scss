@@ -1,0 +1,19 @@
+@use 'sass:math';
+@use 'breakpoints' as *;
+
+$base-font-size: 16;
+
+/// Convertit une valeur en px (sans unité) en rem.
+@function rem($px) {
+  @return math.div($px, $base-font-size) * 1rem;
+}
+
+/// Valeur fluide qui passe de $min (au viewport mobile) à $max (au viewport desktop),
+/// bornée de part et d'autre. Valeurs en px sans unité.
+@function fluid($min, $max, $viewport-from: $viewport-min, $viewport-to: $viewport-max) {
+  $slope: math.div($max - $min, $viewport-to - $viewport-from);
+  $intercept: $min - $slope * $viewport-from;
+  $vw: math.div(math.round($slope * 100 * 1000), 1000) * 1vw;
+
+  @return clamp(rem(math.min($min, $max)), rem($intercept) + $vw, rem(math.max($min, $max)));
+}

@@ -1,0 +1,28 @@
+@use 'abstracts' as *;
+
+.menu {
+  padding-block: $space-section;
+  padding-inline: $space-gutter;
+}
+
+.eyebrow {
+  margin-block-end: $space-stack-s;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+}
+
+.index {
+  color: $color-accent;
+}
+
+.title {
+  margin-block-end: $space-stack-l;
+  font-family: $font-display;
+  font-size: $font-size-heading-xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}

@@ -1,0 +1,16 @@
+@use 'abstracts' as *;
+
+.skipLink {
+  position: fixed;
+  inset-block-start: $space-s;
+  inset-inline-start: $space-s;
+  z-index: $z-skip-link;
+  padding: $space-xs $space-s;
+  font-weight: $font-weight-bold;
+  color: $color-background;
+  background-color: $color-text;
+
+  &:not(:focus-visible) {
+    @include visually-hidden;
+  }
+}

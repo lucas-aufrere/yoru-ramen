@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z][a-zA-Z0-9]*$",
+      { "message": "Les classes CSS Modules sont en camelCase (ex. .mediaWrapper)" }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/styles/base/_lenis.scss"],
+      "rules": { "selector-class-pattern": null }
+    }
+  ]
+}

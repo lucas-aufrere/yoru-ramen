@@ -1,0 +1,14 @@
+@use 'abstracts' as *;
+
+.sequence {
+  position: relative;
+}
+
+// L'image de repli et le canvas se superposent exactement : le canvas recouvre le repli dès qu'il dessine.
+.layer {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}

@@ -1,0 +1,15 @@
+@use 'abstracts' as *;
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding-block: $space-xs;
+  padding-inline: $space-m;
+  border: $border-width-medium solid $color-border-strong;
+  border-radius: $radius-pill;
+  font-size: $font-size-tag;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-label;
+  text-transform: uppercase;
+}

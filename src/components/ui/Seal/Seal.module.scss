@@ -1,0 +1,27 @@
+@use 'abstracts' as *;
+
+.seal {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  inline-size: $size-seal;
+  block-size: $size-seal;
+  border-radius: $radius-pill;
+  color: $color-text;
+}
+
+.dark {
+  background-color: $color-background;
+}
+
+.accent {
+  background-color: $color-accent;
+}
+
+// Taille réduite dans la pastille : imbriquée pour que la pastille garde la taille du parent.
+// Police japonaise chargée par le site : même tracé, épais, sur tous les systèmes.
+.glyph {
+  font-family: $font-japanese;
+  font-size: $font-size-seal-glyph;
+  font-weight: $font-weight-black;
+}

@@ -1,0 +1,103 @@
+@use 'sass:list';
+@use 'functions' as *;
+
+// Échelle fixe
+$space-3xs: rem(4);
+$space-2xs: rem(8);
+$space-xs: rem(12);
+$space-s: rem(16);
+$space-m: rem(24);
+$space-l: rem(32);
+$space-xl: rem(48);
+
+// Espacements fluides (mobile 375 → desktop 1440)
+$space-gutter: fluid(20, 56); // Marge latérale de page
+$space-stack-s: fluid(16, 24);
+$space-stack-m: fluid(24, 40);
+$space-stack-l: fluid(32, 64);
+$space-header-top: fluid(16, 40);
+$space-section: fluid(80, 160); // Respiration verticale entre sections
+$size-section-full: 100svh; // Hauteur minimale des sections « pleine page »
+
+// Dimensions
+$size-tap-target: rem(44); // Zone cliquable minimale visée sur mobile (WCAG 2.5.5)
+$size-header-height: rem(60);
+$size-header-offset: calc(
+  $size-header-height + $space-header-top
+); // Hauteur occupée par le header fixe
+$size-button-height: fluid(52, 60);
+$size-badge: fluid(104, 136);
+$size-dot: rem(12);
+$size-text-max: rem(560); // Largeur de lecture du texte d'accroche
+$size-round-button: fluid(52, 60);
+$size-icon: rem(24);
+$size-tags-max: rem(520); // Les étiquettes passent sur deux lignes, comme sur la maquette
+// Bandeaux : proportions relatives à la taille du texte, pour s'adapter aux deux variantes.
+$size-marquee-dot: 0.35em; // Point séparateur
+$space-marquee-gap: 0.5em; // Espace entre un mot et son séparateur
+
+// Bandeaux défilants : débordement sur la section précédente et inclinaisons croisées.
+$size-ribbons-overlap: fluid(24, 48);
+
+// Espace réservé en bas du hero pour les bandeaux : plus grand que leur débordement, ils
+// s'arrêtent donc un peu sous le contenu du hero.
+$size-ribbons-clearance: fluid(48, 96);
+$size-ribbon-bleed: 10%; // Débord de chaque côté pour que l'inclinaison ne laisse pas de vide
+$angle-ribbon-front: -4deg;
+$angle-ribbon-back: 2deg;
+
+// Séquence d'images épinglée (section ingrédients).
+$size-sequence-mobile: 36svh; // Hauteur réservée en haut de l'écran pendant que la liste défile dessous
+// Toujours entière dans le viewport, sans écraser la colonne de texte.
+$size-sequence-desktop: min(36vw, 72svh);
+$size-sequence-fade: 30%; // Hauteur du fondu au noir en haut de la séquence
+$space-ingredients-gap: fluid(40, 96);
+
+// Marge sous le dernier élément épinglé : le laisse remonter jusqu'au centre de la zone de texte.
+$space-ingredients-tail-mobile: 24svh;
+$space-ingredients-tail: 40svh;
+
+// Défilement horizontal des ramens.
+$size-dish-image: min(fluid(264, 484), 44svh); // Bol et légende toujours entiers à l'écran
+$size-dish-caption: min(rem(440), 80vw); // Description sur deux lignes sous le bol (desktop)
+$size-dish-min-mobile: calc(100vw - 2 * $space-gutter); // Un plat à la fois sur mobile
+$size-scroll-hint: rem(64);
+$space-dishes-gap: fluid(
+  64,
+  240
+); // Assez large pour que les noms en fond, qui glissent en sens inverse, ne se touchent jamais
+
+// Cartes de la carte (ramens, karaage, boissons).
+$ratio-card-mobile: list.slash(4, 5); // Proportions largeur / hauteur (aspect-ratio)
+$ratio-card: list.slash(3, 4);
+$size-card-fade-start: 55%; // Le bas de la photo se fond dans le fond noir, sous le titre
+$size-link-arrow: rem(104); // Longue flèche des liens « Nos ramens → »
+
+// Pastille 夜 : proportions relatives à la taille de texte de son parent.
+$size-seal: 1.1em;
+$font-size-seal-glyph: 0.6em;
+$size-footer-seal: 0.8em; // Pastille du slogan du footer, un peu plus petite que les capitales
+
+// Formules (échelle de faim).
+$size-combo-card: rem(420); // Hauteur minimale d'une carte de formule
+$space-combo-step: fluid(24, 64); // Décalage vertical d'une marche à l'autre
+
+// Bandeau photo en parallaxe (festin).
+$ratio-feast: list.slash(16, 9);
+$size-feast-min: 60svh; // Hauteur minimale sur mobile, où le 16:9 serait trop bas
+$size-feast-max: 100svh;
+$size-parallax-bleed: 10%; // Débord de l'image en haut et en bas, consommé par la parallaxe
+
+// Cartes d'action (click & collect, livraison, réservation).
+$size-action-card: rem(480);
+
+// Vidéo de rue agrandie au scroll.
+$size-street-caption: rem(640); // Légende sur deux lignes sous le titre japonais
+$size-video-blur: rem(4); // Rayon du flou ; la vidéo déborde d'autant pour garder des bords nets
+
+// Rayons et bordures
+$radius-pill: 100vmax;
+$radius-card: rem(24);
+$radius-media: rem(40); // Coins d'un média qui grandit jusqu'au plein écran
+$border-width-thin: 1px;
+$border-width-medium: 2px;

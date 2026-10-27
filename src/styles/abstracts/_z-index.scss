@@ -1,0 +1,9 @@
+// Couches dans un contexte d'empilement local (ex. le hero).
+$z-behind: -1; // Décor sous le contenu courant d'une section isolée (isolation: isolate)
+$z-media: 0;
+$z-veil: 1;
+$z-content: 2;
+
+// Couches globales
+$z-header: 100;
+$z-skip-link: 200;

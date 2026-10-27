@@ -1,0 +1,43 @@
+@use 'sass:map';
+@use 'breakpoints' as *;
+@use 'functions' as *;
+
+/// Applique les styles à partir du breakpoint donné (approche mobile first).
+@mixin breakpoint-up($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error 'Breakpoint inconnu : `#{$name}`. Disponibles : #{map.keys($breakpoints)}';
+  }
+
+  @media (width >= rem(map.get($breakpoints, $name))) {
+    @content;
+  }
+}
+
+/// Styles appliqués uniquement si l'utilisateur demande moins d'animations.
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// Masque visuellement un élément tout en le gardant lisible par les lecteurs d'écran.
+@mixin visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/// Effets de survol réservés aux appareils qui ont un vrai pointeur (évite le hover collant au tactile).
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+@use 'abstracts' as *;
+
+// Remontée sur le hero : les bandeaux chevauchent les deux sections.
+.welcome {
+  position: relative;
+  z-index: $z-content;
+  margin-block-start: calc(-1 * $size-ribbons-overlap);
+  padding-block-end: $space-section;
+}
+
+// Les deux bandeaux partagent la même cellule de grille pour se croiser.
+.ribbons {
+  display: grid;
+
+  // minmax(0, 1fr) : la colonne ne s'élargit pas à la largeur (très grande) des pistes défilantes.
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: $space-stack-m;
+  overflow-x: clip;
+}
+
+.ribbon {
+  grid-area: 1 / 1;
+  align-self: center;
+  inline-size: calc(100% + 2 * $size-ribbon-bleed);
+  margin-inline-start: calc(-1 * $size-ribbon-bleed);
+}
+
+.ribbonBack {
+  rotate: $angle-ribbon-back;
+}
+
+.ribbonFront {
+  rotate: $angle-ribbon-front;
+}
+
+.content {
+  padding-block-start: $space-section;
+  padding-inline: $space-gutter;
+}
+
+.title {
+  margin-block-end: $space-stack-m;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  font-weight: $font-weight-regular;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+}
+
+.statement {
+  --reveal-from-color: #{$color-text-dim};
+
+  margin-block-end: $space-section;
+  font-family: $font-display;
+  font-size: $font-size-statement;
+  font-weight: $font-weight-black;
+  line-height: $line-height-statement;
+  letter-spacing: $letter-spacing-statement;
+  text-transform: uppercase;
+
+  em {
+    font-style: italic;
+    color: $color-accent;
+  }
+}
+
+.details {
+  display: grid;
+  gap: $space-stack-m;
+
+  @include breakpoint-up(lg) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: $space-stack-l;
+    align-items: start;
+  }
+}
+
+.discover {
+  display: grid;
+  place-items: center;
+  inline-size: $size-round-button;
+  block-size: $size-round-button;
+  border: $border-width-medium solid $color-border-strong;
+  border-radius: $radius-pill;
+  color: $color-text;
+  transition:
+    background-color $duration-fast $ease-out-expo,
+    color $duration-fast $ease-out-expo;
+
+  @include hover {
+    color: $color-background;
+    background-color: $color-text;
+  }
+}
+
+.icon {
+  inline-size: $size-icon;
+  block-size: $size-icon;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: $border-width-medium;
+}
+
+.paragraph {
+  max-inline-size: $size-text-max;
+  font-size: $font-size-body;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+
+  @include breakpoint-up(lg) {
+    justify-content: flex-end;
+    max-inline-size: $size-tags-max;
+  }
+}

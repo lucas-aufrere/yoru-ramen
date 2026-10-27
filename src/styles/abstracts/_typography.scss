@@ -1,0 +1,56 @@
+@use 'functions' as *;
+
+// Familles : variables CSS injectées par next/font dans layout.tsx.
+$font-display: var(--font-display);
+$font-text: var(--font-text);
+$font-mono: var(--font-mono);
+$font-japanese: var(--font-japanese);
+
+// Graisses
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+// Tailles (mobile 375 → desktop 1440)
+$font-size-display: fluid(76, 200); // Titre du hero
+$font-size-footer-slogan: fluid(48, 136); // Slogan géant du footer
+$font-size-street-title: fluid(52, 180); // Titre en idéogrammes, sur une seule ligne
+$font-size-statement: fluid(34, 84); // Grand texte manifeste
+$font-size-heading: fluid(40, 92); // Titres de section
+$font-size-heading-xl: fluid(48, 120); // Grands titres de section pleine largeur
+$font-size-subheading: fluid(28, 48); // Titres d'éléments de liste
+$font-size-dish: fluid(72, 168); // Nom géant derrière un plat
+$font-size-title-m: fluid(24, 36); // Titres moyens (noms de formules)
+$font-size-title-s: fluid(20, 28); // Petits titres (légendes de plats)
+$font-size-card-title: fluid(40, 60); // Titre posé sur une carte photo
+$font-size-menu-tab: fluid(24, 64); // Catégories de la carte
+$font-size-combo-seals: fluid(32, 44); // Pastilles des formules (taille de référence en em)
+$font-size-socials-seal: fluid(160, 360); // Grande pastille de la section réseaux sociaux
+$font-size-menu-link: fluid(36, 56); // Liens du menu mobile
+$font-size-marquee-large: fluid(28, 56); // Bandeau principal
+$font-size-marquee-small: fluid(18, 32); // Bandeau secondaire
+$font-size-logo: fluid(20, 28);
+$font-size-lead: fluid(17, 22); // Texte d'accroche
+$font-size-body: fluid(16, 20); // Paragraphes courants
+$font-size-eyebrow: fluid(12, 16); // Surtitre en capitales espacées
+$font-size-label: fluid(14, 16); // Navigation et boutons
+$font-size-tag: fluid(12, 14); // Étiquettes
+$font-size-caption: fluid(11, 14); // Mentions secondaires
+$font-size-badge: 11; // Unités SVG (viewBox de 100) : le badge suit la taille de son conteneur
+$font-size-badge-center: 28;
+
+// Interlignages
+$line-height-display: 0.86;
+$line-height-statement: 1.02;
+$line-height-heading: 0.95;
+$line-height-tight: 1.1;
+$line-height-text: 1.5;
+
+// Approches
+$letter-spacing-display: -0.01em;
+$letter-spacing-statement: -0.02em;
+$letter-spacing-label: 0.04em;
+$letter-spacing-button: 0.1em;
+$letter-spacing-mono: 0.12em;
+$letter-spacing-wide: 0.28em;

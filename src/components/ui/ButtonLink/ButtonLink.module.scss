@@ -1,0 +1,63 @@
+@use 'abstracts' as *;
+
+.button {
+  display: inline-flex;
+  gap: $space-xs;
+  align-items: center;
+  justify-content: center;
+  min-block-size: $size-button-height;
+  padding-inline: $space-l;
+  border: $border-width-medium solid transparent;
+  border-radius: $radius-pill;
+  font-family: $font-text;
+  font-size: $font-size-label;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-button;
+  color: $color-text;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color $duration-fast $ease-out-expo,
+    color $duration-fast $ease-out-expo;
+
+  @include hover {
+    color: $color-background;
+    background-color: $color-text;
+
+    .arrow {
+      transform: translateX($space-3xs);
+    }
+  }
+}
+
+.primary {
+  background-color: $color-accent;
+}
+
+.outline {
+  border-color: $color-border-strong;
+}
+
+// Sur fond vermillon : bouton noir, qui s'inverse en blanc au survol.
+.dark {
+  background-color: $color-on-accent;
+}
+
+.small {
+  min-block-size: $size-tap-target;
+  padding-inline: $space-m;
+}
+
+.arrow {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: $border-width-medium;
+  transition: transform $duration-base $ease-out-expo;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}

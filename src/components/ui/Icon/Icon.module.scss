@@ -1,0 +1,12 @@
+@use 'abstracts' as *;
+
+.icon {
+  flex-shrink: 0;
+  inline-size: $size-icon;
+  block-size: $size-icon;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: $border-width-medium;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

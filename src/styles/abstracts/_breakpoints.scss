@@ -1,0 +1,12 @@
+// Largeurs minimales (px) utilisées par le mixin breakpoint-up().
+$breakpoints: (
+  sm: 600,
+  md: 768,
+  lg: 1024,
+  xl: 1440,
+);
+
+// Bornes de viewport (px) entre lesquelles les valeurs fluid() varient :
+// maquette mobile (375) et maquette desktop (1440).
+$viewport-min: 375;
+$viewport-max: 1440;

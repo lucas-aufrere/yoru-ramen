@@ -1,0 +1,140 @@
+@use 'abstracts' as *;
+
+.categories {
+  padding-block: $space-section;
+  padding-inline: $space-gutter;
+}
+
+// Pas de titre visible sur la maquette : la section garde un titre pour les lecteurs d'écran.
+.title {
+  @include visually-hidden;
+}
+
+.cards {
+  display: grid;
+  gap: $space-stack-l;
+
+  @include breakpoint-up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-m;
+  }
+}
+
+// Le lien couvre toute la carte (voir .link::after) : la carte sert de référence.
+.card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto;
+
+  // Survol : la photo zoome légèrement et la flèche avance.
+  @include hover {
+    .image {
+      scale: $scale-hover-zoom;
+    }
+
+    .arrow {
+      translate: $space-2xs 0;
+    }
+  }
+}
+
+.media {
+  position: relative;
+  grid-area: 1 / 1;
+  overflow: hidden;
+  aspect-ratio: $ratio-card-mobile;
+  border-radius: $radius-card;
+
+  // Le bas de la photo se fond dans le fond de page, sous le titre.
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background-image: linear-gradient(
+      to bottom,
+      $color-veil-transparent $size-card-fade-start,
+      $color-background
+    );
+  }
+
+  @include breakpoint-up(md) {
+    aspect-ratio: $ratio-card;
+  }
+}
+
+.image {
+  object-fit: cover;
+  transition: scale $duration-base $ease-out-expo;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+// Posé en bas de la photo, par-dessus le dégradé.
+.cardTitle {
+  z-index: $z-content;
+  grid-area: 1 / 1;
+  align-self: end;
+  padding-inline: $space-stack-m;
+  font-family: $font-display;
+  font-size: $font-size-card-title;
+  font-weight: $font-weight-black;
+  line-height: $line-height-display;
+  text-transform: uppercase;
+}
+
+.link {
+  display: flex;
+  gap: $space-m;
+  align-items: center;
+  padding-block-start: $space-stack-s;
+  padding-inline: $space-stack-m;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-wide;
+  color: $color-accent;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  // Zone cliquable étendue à toute la carte.
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    border-radius: $radius-card;
+  }
+
+  // L'anneau de focus entoure toute la carte, comme la zone cliquable.
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::after {
+    outline: $border-width-medium solid $color-text;
+    outline-offset: $space-3xs;
+  }
+}
+
+// Couleurs alternées, comme la maquette : titre rouge et lien blanc une carte sur deux.
+.card:nth-child(even) {
+  .cardTitle {
+    color: $color-accent;
+  }
+
+  .link {
+    color: $color-text;
+  }
+}
+
+.arrow {
+  inline-size: $size-link-arrow;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: $border-width-thin;
+  transition: translate $duration-base $ease-out-expo;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}

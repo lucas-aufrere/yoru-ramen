@@ -1,0 +1,32 @@
+@use 'abstracts' as *;
+
+.badge {
+  inline-size: $size-badge;
+  block-size: $size-badge;
+}
+
+.ring {
+  transform-origin: center;
+  transform-box: view-box;
+}
+
+.ringText {
+  font-family: $font-text;
+  font-size: $font-size-badge;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  fill: $color-text;
+}
+
+.separator {
+  fill: $color-accent;
+}
+
+.center {
+  font-family: $font-display;
+  font-size: $font-size-badge-center;
+  font-weight: $font-weight-black;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: $color-accent;
+}

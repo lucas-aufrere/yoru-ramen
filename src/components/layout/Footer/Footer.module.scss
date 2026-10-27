@@ -1,0 +1,131 @@
+@use 'abstracts' as *;
+
+.footer {
+  padding-block: $space-section $space-stack-l;
+  padding-inline: $space-gutter;
+  border-block-start: $border-width-thin solid $color-border-subtle;
+  background-color: $color-background;
+}
+
+.slogan {
+  margin-block-end: $space-section;
+  font-family: $font-display;
+  font-size: $font-size-footer-slogan;
+  font-weight: $font-weight-black;
+  line-height: $line-height-display;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.sloganLine {
+  display: flex;
+  gap: $space-stack-s;
+  align-items: center;
+}
+
+.sloganAccent {
+  color: $color-accent;
+}
+
+// La pastille (Seal) suit la taille du slogan : un peu plus petite qu'une capitale.
+.seal {
+  font-size: $size-footer-seal;
+}
+
+// Deux colonnes sur mobile, quatre sur desktop.
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-stack-l $space-stack-m;
+  margin-block-end: $space-section;
+
+  @include breakpoint-up(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.label {
+  margin-block-end: $space-stack-s;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  font-weight: $font-weight-regular;
+  letter-spacing: $letter-spacing-mono;
+  color: $color-accent;
+  text-transform: uppercase;
+}
+
+.text {
+  font-size: $font-size-body;
+  font-style: normal;
+}
+
+.list {
+  display: grid;
+  gap: $space-2xs;
+  font-size: $font-size-body;
+  font-style: normal;
+}
+
+.link {
+  color: $color-text;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color $duration-fast $ease-out-expo;
+
+  @include hover {
+    color: $color-accent;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: $space-xs;
+}
+
+// Bouton rond de la taille d'une zone tactile confortable.
+.social {
+  display: grid;
+  place-items: center;
+  inline-size: $size-tap-target;
+  block-size: $size-tap-target;
+  border: $border-width-thin solid $color-border-subtle;
+  border-radius: $radius-pill;
+  color: $color-text;
+  transition:
+    border-color $duration-fast $ease-out-expo,
+    color $duration-fast $ease-out-expo;
+
+  @include hover {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-s;
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: $space-stack-m;
+  border-block-start: $border-width-thin solid $color-border-subtle;
+  font-family: $font-mono;
+  font-size: $font-size-caption;
+  letter-spacing: $letter-spacing-mono;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+.backToTop {
+  display: inline-flex;
+  gap: $space-2xs;
+  align-items: center;
+  min-block-size: $size-tap-target;
+  color: $color-text-muted;
+  text-decoration: none;
+  transition: color $duration-fast $ease-out-expo;
+
+  @include hover {
+    color: $color-text;
+  }
+}

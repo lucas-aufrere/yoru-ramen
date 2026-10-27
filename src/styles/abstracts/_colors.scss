@@ -1,0 +1,38 @@
+@use 'sass:color';
+
+// Palette
+$color-white: #fff;
+$color-vermilion: #d83b2d;
+$color-black: #000;
+
+// Rôles : fonds noirs, textes blancs et rouges.
+$color-background: $color-black;
+$color-text: $color-white;
+$color-accent: $color-vermilion;
+
+// Texte et boutons posés sur un fond vermillon : noir sur vermillon ≈ 4,6:1 (AA).
+$color-on-accent: $color-black;
+
+// Sections claires : fond blanc, texte noir.
+$color-surface-light: $color-white;
+$color-on-light: $color-black;
+
+// Blanc à 70 % : contraste ≈ 10:1 sur le noir, au-dessus du seuil AA de 4,5:1.
+$color-text-muted: color.change($color-white, $alpha: 0.7);
+
+// Texte « éteint » avant sa révélation au scroll (état transitoire, jamais l'état final).
+$color-text-dim: color.change($color-white, $alpha: 0.18);
+
+// Cartes « verre » : reflet blanc en haut, dégradé vers un rouge néon très atténué en bas.
+$color-glass-sheen: color.change($color-white, $alpha: 0.06);
+$color-glass-glow: color.change($color-vermilion, $alpha: 0.22);
+$color-glass-highlight: color.change($color-white, $alpha: 0.12);
+
+// Bordures
+$color-border-subtle: color.change($color-white, $alpha: 0.2);
+$color-border-strong: $color-white;
+
+// Voiles posés sur les médias pour garantir la lisibilité du texte.
+$color-veil-strong: color.change($color-black, $alpha: 0.92);
+$color-veil-medium: color.change($color-black, $alpha: 0.6);
+$color-veil-transparent: color.change($color-black, $alpha: 0);

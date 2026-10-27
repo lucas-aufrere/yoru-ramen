@@ -1,0 +1,9 @@
+@use 'abstracts' as *;
+
+body {
+  color: $color-text;
+  font-family: $font-text;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-text;
+  background-color: $color-background;
+}

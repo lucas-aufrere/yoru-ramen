@@ -1,0 +1,7 @@
+// Transitions CSS (hover, focus). Les animations GSAP ont leurs valeurs dans src/animations/config.ts.
+$duration-fast: 0.25s;
+$duration-base: 0.4s;
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+// Léger zoom d'une photo au survol.
+$scale-hover-zoom: 1.05;

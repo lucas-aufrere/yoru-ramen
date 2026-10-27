@@ -1,0 +1,130 @@
+@use 'abstracts' as *;
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-block-size: 100svh;
+
+  // En bas : réserve la place des bandeaux de la section suivante, qui remontent sur le hero.
+  padding-block: calc($size-header-offset + $space-stack-m)
+    calc($space-stack-l + $size-ribbons-clearance);
+  padding-inline: $space-gutter;
+  overflow: clip;
+  isolation: isolate;
+  background-color: $color-background;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: $z-media;
+}
+
+// Le bol occupe la moitié droite de la vidéo : on le garde dans le cadre sur écran étroit.
+.video {
+  object-position: 70% center;
+}
+
+// Voile noir sous le texte pour garantir le contraste, quelle que soit l'image de la vidéo.
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: $z-veil;
+  background: linear-gradient(
+    to top,
+    $color-veil-strong 30%,
+    $color-veil-medium 60%,
+    $color-veil-transparent 85%
+  );
+
+  @include breakpoint-up(lg) {
+    background:
+      linear-gradient(
+        to right,
+        $color-veil-strong 15%,
+        $color-veil-medium 50%,
+        $color-veil-transparent 75%
+      ),
+      linear-gradient(to top, $color-veil-strong 0%, $color-veil-transparent 35%);
+  }
+}
+
+.content {
+  position: relative;
+  z-index: $z-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  display: flex;
+  gap: $space-s;
+  align-items: center;
+  margin-block-end: $space-stack-m;
+  font-size: $font-size-eyebrow;
+  font-weight: $font-weight-medium;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+}
+
+.dot {
+  flex-shrink: 0;
+  inline-size: $size-dot;
+  block-size: $size-dot;
+  border-radius: $radius-pill;
+  background-color: $color-accent;
+}
+
+.title {
+  margin-block-end: $space-stack-s;
+  font-family: $font-display;
+  font-size: $font-size-display;
+  font-weight: $font-weight-black;
+  line-height: $line-height-display;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleAccent {
+  color: $color-accent;
+}
+
+.lead {
+  max-inline-size: $size-text-max;
+  margin-block-end: $space-stack-m;
+  font-size: $font-size-lead;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-s;
+  margin-block-end: $space-stack-s;
+}
+
+.scrollHint {
+  font-family: $font-mono;
+  font-size: $font-size-caption;
+  letter-spacing: $letter-spacing-wide;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+// Sceau décoratif en bas à droite, sur la zone sombre de la vidéo, au-dessus des bandeaux.
+.badge {
+  position: absolute;
+  inset-block-end: calc($space-stack-l + $size-ribbons-clearance);
+  inset-inline-end: $space-gutter;
+  z-index: $z-content;
+  display: none;
+
+  @include breakpoint-up(md) {
+    display: block;
+  }
+}

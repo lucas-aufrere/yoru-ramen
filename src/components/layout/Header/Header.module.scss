@@ -1,0 +1,204 @@
+@use 'abstracts' as *;
+
+// Fixe : suit le scroll. Les sections tiennent compte de sa hauteur ($size-header-offset).
+.header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: $z-header;
+  display: flex;
+  gap: $space-m;
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: $space-header-top;
+  padding-inline: $space-gutter;
+}
+
+.logo {
+  font-family: $font-display;
+  font-size: $font-size-logo;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $color-text;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  // Sur une section blanche ; le logo du menu mobile, sur fond noir, n'est pas concerné.
+  .header[data-theme='light'] > & {
+    color: $color-on-light;
+  }
+}
+
+// Navigation desktop : pilule centrée sur la page.
+.nav {
+  display: none;
+
+  @include breakpoint-up(lg) {
+    position: absolute;
+    inset-inline-start: 50%;
+    display: block;
+    translate: -50% 0;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: $space-xl;
+  align-items: center;
+  min-block-size: $size-header-height;
+  padding-block: 0;
+  padding-inline: $space-l;
+  border: $border-width-thin solid $color-border-subtle;
+  border-radius: $radius-pill;
+  background-color: $color-veil-medium;
+}
+
+.navLink {
+  position: relative;
+  font-size: $font-size-label;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-label;
+  color: $color-text;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  // Soulignement rouge qui se déploie au survol.
+  &::after {
+    position: absolute;
+    inset-block-end: -$space-3xs;
+    inset-inline: 0;
+    block-size: $border-width-medium;
+    content: '';
+    background-color: $color-accent;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform $duration-base $ease-out-expo;
+  }
+
+  @include hover {
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.cta {
+  display: none;
+
+  @include breakpoint-up(lg) {
+    display: inline-flex;
+  }
+
+  // Sur une section vermillon, le bouton vermillon disparaîtrait : il passe en noir.
+  .header[data-theme='accent'] &:not(:hover) {
+    background-color: $color-on-accent;
+  }
+}
+
+.menuToggle {
+  display: grid;
+  place-items: center;
+  inline-size: $size-tap-target;
+  block-size: $size-tap-target;
+  padding: 0;
+  border: $border-width-thin solid $color-border-subtle;
+  border-radius: $radius-pill;
+  color: $color-text;
+  background-color: $color-veil-medium;
+  cursor: pointer;
+
+  @include breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+// Icône burger : deux traits, transformés en croix pour la fermeture.
+.menuIcon {
+  position: relative;
+  inline-size: $space-m;
+  block-size: $space-2xs;
+
+  &::before,
+  &::after {
+    position: absolute;
+    inset-inline: 0;
+    block-size: $border-width-medium;
+    content: '';
+    background-color: currentcolor;
+  }
+
+  &::before {
+    inset-block-start: 0;
+  }
+
+  &::after {
+    inset-block-end: 0;
+  }
+}
+
+.menuIconClose {
+  &::before,
+  &::after {
+    inset-block-start: 50%;
+  }
+
+  &::before {
+    rotate: 45deg;
+  }
+
+  &::after {
+    rotate: -45deg;
+  }
+}
+
+// Menu mobile plein écran (élément <dialog>).
+.menu {
+  inline-size: 100%;
+  max-inline-size: none;
+  block-size: 100%;
+  max-block-size: none;
+  margin: 0;
+  padding-block: $space-header-top $space-stack-l;
+  padding-inline: $space-gutter;
+  border: 0;
+  color: $color-text;
+  background-color: $color-background;
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.menuTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Centre verticalement les liens entre le haut du menu et le bouton de réservation.
+.menuNav {
+  margin-block: auto;
+  padding-block: $space-stack-m;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-s;
+}
+
+.menuLink {
+  font-family: $font-display;
+  font-size: $font-size-menu-link;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $color-text;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.menuCta {
+  align-self: flex-start;
+}

@@ -1,0 +1,155 @@
+@use 'abstracts' as *;
+
+// Sans animation (JS indisponible ou mouvement réduit), la piste défile horizontalement de façon
+// native, aimantée sur chaque plat. Avec animation, `data-pinned` (posé par pinHorizontalScroll)
+// réduit la section à un écran épinglé, que la piste traverse au rythme du scroll.
+.ramens {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-block: $space-section;
+  isolation: isolate;
+  color: $color-on-accent;
+  background-color: $color-accent;
+
+  // Le haut laisse la place au header fixe, qui reste par-dessus la section épinglée.
+  &[data-pinned] {
+    block-size: 100svh;
+    padding-block: calc($size-header-offset + $space-stack-s) $space-stack-l;
+    overflow: clip;
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-stack-s;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-inline: $space-gutter;
+}
+
+.eyebrow {
+  margin-block-end: $space-stack-s;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: $font-display;
+  font-size: $font-size-heading-xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+
+  @include breakpoint-up(md) {
+    text-align: end;
+  }
+}
+
+.taglineLine {
+  display: block;
+}
+
+// Occupe la hauteur restante de la section ; les plats y sont centrés verticalement.
+.track {
+  display: flex;
+  flex: 1;
+  gap: $space-dishes-gap;
+  align-items: center;
+  padding-block: $space-stack-s;
+  padding-inline: $space-gutter;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: $space-gutter;
+
+  .ramens[data-pinned] & {
+    inline-size: max-content;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+// Une colonne aussi large que le plus large du nom géant et du plat ; le nom est centré sur le bol.
+.dish {
+  display: grid;
+  flex: none;
+  grid-template-rows: $size-dish-image auto;
+  justify-items: center;
+  min-inline-size: $size-dish-min-mobile;
+  scroll-snap-align: center;
+
+  @include breakpoint-up(md) {
+    min-inline-size: auto;
+  }
+}
+
+.backdrop {
+  grid-area: 1 / 1;
+  align-self: center;
+  font-family: $font-display;
+  font-size: $font-size-dish;
+  font-weight: $font-weight-black;
+  line-height: $line-height-display;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+// Couvre les deux rangées : le bol devant le nom géant, la légende en dessous.
+.plate {
+  z-index: $z-content;
+  display: flex;
+  flex-direction: column;
+  grid-area: 1 / 1 / 3 / 2;
+  align-items: center;
+  text-align: center;
+}
+
+.image {
+  inline-size: $size-dish-image;
+  block-size: $size-dish-image;
+  object-fit: contain;
+}
+
+.dishTitle {
+  margin-block: $space-s $space-2xs;
+  font-family: $font-display;
+  font-size: $font-size-title-s;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  text-transform: uppercase;
+}
+
+.description {
+  max-inline-size: $size-dish-caption;
+  margin-block-end: $space-s;
+  font-family: $font-mono;
+  font-size: $font-size-caption;
+}
+
+// Indication de scroll décorative, en bas à gauche, derrière les plats qui défilent.
+.scrollHint {
+  position: absolute;
+  inset-block-end: $space-stack-l;
+  inset-inline-start: $space-gutter;
+  z-index: $z-behind;
+  display: none;
+  block-size: $size-scroll-hint;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: $border-width-medium;
+
+  @include breakpoint-up(lg) {
+    display: block;
+  }
+}

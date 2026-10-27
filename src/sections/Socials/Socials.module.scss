@@ -1,0 +1,55 @@
+@use 'abstracts' as *;
+
+// Texte à gauche, grande pastille à droite (sous le texte sur mobile).
+.socials {
+  display: grid;
+  gap: $space-stack-l;
+  align-content: center;
+  align-items: center;
+  min-block-size: $size-section-full;
+  padding-block: $space-section;
+  padding-inline: $space-gutter;
+  overflow: clip;
+  color: $color-on-accent;
+  background-color: $color-accent;
+
+  @include breakpoint-up(lg) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.eyebrow {
+  margin-block-end: $space-stack-s;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-mono;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-block-end: $space-stack-m;
+  font-family: $font-display;
+  font-size: $font-size-heading-xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  max-inline-size: $size-text-max;
+  margin-block-end: $space-stack-m;
+  font-size: $font-size-lead;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-s;
+}
+
+// La taille du texte fixe celle de la pastille (Seal), proportionnelle à son parent.
+.seal {
+  justify-self: center;
+  font-size: $font-size-socials-seal;
+}

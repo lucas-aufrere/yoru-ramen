@@ -1,0 +1,140 @@
+@use 'abstracts' as *;
+
+// Contenu centré verticalement dans une section haute.
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-block-size: $size-section-full;
+  padding-block: $space-section;
+  padding-inline: $space-gutter;
+}
+
+.title {
+  margin-block-end: $space-stack-l;
+  font-family: $font-display;
+  font-size: $font-size-heading-xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-display;
+  text-transform: uppercase;
+}
+
+.actions {
+  display: grid;
+  gap: $space-m;
+  margin-block-end: $space-stack-l;
+
+  @include breakpoint-up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+// Carte entièrement cliquable : pictogrammes en haut, titre et description en bas.
+.action {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-stack-m;
+  block-size: 100%;
+  min-block-size: $size-action-card;
+  padding: $space-stack-m;
+  border: $border-width-thin solid $color-border-subtle;
+  border-radius: $radius-card;
+  color: $color-text;
+  text-decoration: none;
+
+  // Effet verre : reflet clair en haut à gauche, lueur rouge néon en bas à droite, liseré clair
+  // sur l'arête haute.
+  background-image: linear-gradient(
+    160deg,
+    $color-glass-sheen,
+    $color-veil-transparent 45%,
+    $color-glass-glow
+  );
+  box-shadow: inset 0 $border-width-thin 0 $color-glass-highlight;
+  transition: border-color $duration-fast $ease-out-expo;
+
+  @include hover {
+    border-color: $color-accent;
+
+    .arrow {
+      translate: $space-3xs (-$space-3xs);
+    }
+  }
+}
+
+.actionIcons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrow {
+  transition: translate $duration-base $ease-out-expo;
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.actionTitle {
+  margin-block-end: $space-2xs;
+  font-family: $font-display;
+  font-size: $font-size-title-m;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  text-transform: uppercase;
+}
+
+.actionDescription {
+  font-size: $font-size-body;
+  color: $color-text-muted;
+}
+
+// Infos pratiques en ligne, qui passent à la ligne sur petit écran.
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-stack-s $space-stack-l;
+  align-items: center;
+  font-style: normal;
+}
+
+.infoItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  align-items: center;
+  min-block-size: $size-tap-target;
+  color: $color-text;
+  text-decoration: none;
+
+  @include hover {
+    color: $color-accent;
+  }
+}
+
+.directions {
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-mono;
+  color: $color-accent;
+  text-transform: uppercase;
+  text-underline-offset: $space-3xs;
+}
+
+// Signature en bas de section, séparée des infos par un filet.
+.signature {
+  margin-block-start: $space-stack-l;
+  padding-block-start: $space-stack-m;
+  border-block-start: $border-width-thin solid $color-border-subtle;
+  font-family: $font-mono;
+  font-size: $font-size-eyebrow;
+  letter-spacing: $letter-spacing-wide;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+.visuallyHidden {
+  @include visually-hidden;
+}
