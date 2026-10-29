@@ -34,13 +34,6 @@
   }
 }
 
-// Plus grand que le cadre de deux rayons de flou : les bords flous restent hors champ.
-.blur {
-  position: absolute;
-  inset: calc(-2 * $size-video-blur);
-  filter: blur($size-video-blur);
-}
-
 .content {
   position: relative;
   z-index: $z-content;

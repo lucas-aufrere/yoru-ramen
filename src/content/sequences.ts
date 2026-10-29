@@ -1,9 +1,17 @@
-export type SiteImageSequence = {
+type ImageSequenceFrames = {
   /** Chemins des images, dans l'ordre de lecture. */
   frames: string[];
   /** Dimensions communes à toutes les images, en pixels. */
   width: number;
   height: number;
+};
+
+export type SiteImageSequence = ImageSequenceFrames & {
+  /**
+   * Variante légère pour les petits écrans (moins d'images, plus petites) : décodées, toutes les
+   * images de la séquence complète saturent la mémoire d'un téléphone et font saccader le scroll.
+   */
+  compact?: ImageSequenceFrames;
   description: string;
 };
 
@@ -21,6 +29,8 @@ export const sequences = {
       frames: listFrames('/sequences/ramen', 121),
       width: 940,
       height: 940,
+      // Une image sur deux, en 600 px.
+      compact: { frames: listFrames('/sequences/ramen/mobile', 61), width: 600, height: 600 },
       description:
         'Bouillon tonkotsu versé dans un bol de ramen garni de nouilles, chashu, œufs marinés, ciboule et piment.',
     },

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useImperativeHandle, useRef, type Ref } from 'react';
 
-import type { SeekablePlayer } from '@/animations';
+import { BREAKPOINT_QUERY, type SeekablePlayer } from '@/animations';
 import type { SiteImageSequence } from '@/content/sequences';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { findNearestIndex, getFrameLoadOrder } from '@/lib/imageSequence';
@@ -26,49 +26,58 @@ type ImageSequenceProps = {
  * Séquence d'images dessinée dans un canvas, pilotée de l'extérieur via `seek()` (ex. au scroll).
  * La première image sert de repli : elle s'affiche sans JS, pendant le chargement et en mouvement
  * réduit. Les autres images ne sont téléchargées qu'à l'approche de la séquence, et jamais en
- * mouvement réduit.
+ * mouvement réduit. Sur petit écran, la variante `compact` est utilisée si elle existe.
  */
 export function ImageSequence({ sequence, className, ref }: ImageSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Images décodées, indexées par numéro d'image : une case vide n'est pas encore prête.
   const framesRef = useRef<HTMLImageElement[]>([]);
+  // Nombre d'images de la variante chargée (complète ou compacte), connu une fois le choix fait.
+  const frameCountRef = useRef(sequence.frames.length);
   const targetIndexRef = useRef(0);
   const drawnIndexRef = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
-  const frameCount = sequence.frames.length;
 
   // Dessine l'image prête la plus proche de celle demandée, seulement si elle change.
   const render = useCallback(() => {
     const canvas = canvasRef.current;
     const frames = framesRef.current;
-    const index = findNearestIndex(frameCount, targetIndexRef.current, (i) => Boolean(frames[i]));
+    const index = findNearestIndex(frameCountRef.current, targetIndexRef.current, (i) =>
+      Boolean(frames[i]),
+    );
     if (!canvas || index === null || index === drawnIndexRef.current) return;
 
     canvas.getContext('2d')?.drawImage(frames[index], 0, 0, canvas.width, canvas.height);
     drawnIndexRef.current = index;
-  }, [frameCount]);
+  }, []);
 
   useImperativeHandle(
     ref,
     () => ({
       seek(progress) {
-        targetIndexRef.current = Math.round(progress * (frameCount - 1));
+        targetIndexRef.current = Math.round(progress * (frameCountRef.current - 1));
         render();
       },
     }),
-    [frameCount, render],
+    [render],
   );
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || prefersReducedMotion) return;
 
+    const isSmallScreen = !window.matchMedia(BREAKPOINT_QUERY.md).matches;
+    const variant = isSmallScreen && sequence.compact ? sequence.compact : sequence;
     let cancelled = false;
 
+    frameCountRef.current = variant.frames.length;
+    canvas.width = variant.width;
+    canvas.height = variant.height;
+
     const loadFrames = () => {
-      for (const index of getFrameLoadOrder(frameCount, COARSE_LOAD_STEP)) {
+      for (const index of getFrameLoadOrder(variant.frames.length, COARSE_LOAD_STEP)) {
         const image = document.createElement('img');
-        image.src = sequence.frames[index];
+        image.src = variant.frames[index];
         // decode() évite un décodage synchrone, source de saccades, au moment du dessin.
         image
           .decode()
@@ -98,7 +107,7 @@ export function ImageSequence({ sequence, className, ref }: ImageSequenceProps) 
       framesRef.current = [];
       drawnIndexRef.current = null;
     };
-  }, [frameCount, prefersReducedMotion, render, sequence.frames]);
+  }, [prefersReducedMotion, render, sequence]);
 
   return (
     <div

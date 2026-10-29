@@ -157,10 +157,20 @@
   }
 }
 
-// Fondu au noir en haut : le bouillon versé semble sortir de l'obscurité.
+// Fondu au noir en haut : le bouillon versé semble sortir de l'obscurité. Un dégradé posé
+// par-dessus plutôt qu'un masque, qui obligerait à recomposer le canvas à chaque image.
 .sequence {
   inline-size: min(100%, $size-sequence-mobile);
-  mask-image: linear-gradient(to bottom, transparent, $color-black $size-sequence-fade);
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background-image: linear-gradient(
+      $color-background,
+      $color-veil-transparent $size-sequence-fade
+    );
+  }
 
   @include breakpoint-up(lg) {
     inline-size: $size-sequence-desktop;

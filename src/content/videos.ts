@@ -17,6 +17,8 @@ export const videos = {
     },
   },
   street: {
+    // Flou intégré à l'encodage : un filtre CSS sur une vidéo qui s'agrandit coûte trop cher au
+    // scroll, surtout sur mobile.
     osaka: {
       sources: [
         { src: '/videos/osaka-street.webm', type: 'video/webm' },
