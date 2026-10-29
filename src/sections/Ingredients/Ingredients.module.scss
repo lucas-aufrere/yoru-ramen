@@ -3,9 +3,17 @@
 // Sans animation (JS indisponible ou mouvement réduit), la page défile normalement :
 // - mobile : intro, séquence collée en haut de l'écran, puis liste qui défile dessous ;
 // - desktop : séquence collée dans la moitié gauche, intro et liste dans la moitié droite.
-// Avec animation, `data-pinned` (posé par pinWithScrollingContent) réduit la section à un écran,
-// épinglé : la séquence reste en place et seul le texte défile.
+// Avec animation, `data-pinned` (posé par pinWithScrollingContent) allonge la section de la
+// distance de lecture (--pin-distance) et colle son cadre, haut d'un écran, en haut de l'écran
+// (position: sticky) : la séquence reste en place et seul le texte défile.
 .ingredients {
+  &[data-pinned] {
+    block-size: calc(100svh + var(--pin-distance));
+  }
+}
+
+// Cadre de la section : porte la grille de mise en page, collé en haut une fois la section figée.
+.frame {
   position: relative; // Référence des positions mesurées par l'animation
   display: grid;
   grid-template-rows: auto $size-sequence-mobile auto;
@@ -19,7 +27,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  &[data-pinned] {
+  .ingredients[data-pinned] & {
+    position: sticky;
+    inset-block-start: 0;
     grid-template-rows: $size-sequence-mobile minmax(0, 1fr);
     block-size: 100svh;
     padding-block: 0;
@@ -28,24 +38,24 @@
     @include breakpoint-up(lg) {
       grid-template-rows: minmax(0, 1fr);
     }
-  }
 
-  // Desktop épinglé : le texte qui remonte s'efface avant de passer sous le header fixe.
-  &[data-pinned]::before {
-    @include breakpoint-up(lg) {
-      position: absolute;
-      inset-block-start: 0;
-      inset-inline: 0;
-      z-index: $z-content;
-      block-size: calc($size-header-offset + $space-stack-l);
-      content: '';
-      background-image: linear-gradient($color-background 50%, $color-veil-transparent);
-      pointer-events: none;
+    // Desktop : le texte qui remonte s'efface avant de passer sous le header fixe.
+    &::before {
+      @include breakpoint-up(lg) {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+        z-index: $z-content;
+        block-size: calc($size-header-offset + $space-stack-l);
+        content: '';
+        background-image: linear-gradient($color-background 50%, $color-veil-transparent);
+        pointer-events: none;
+      }
     }
   }
 }
 
-// Décor de ruelle sous tout le contenu (la section isole son empilement), assombri par un voile
+// Décor de ruelle sous tout le contenu (le cadre isole son empilement), assombri par un voile
 // pour que le texte reste lisible sur les lanternes.
 .background {
   position: absolute;
@@ -64,7 +74,7 @@
   object-fit: cover;
 }
 
-// Sur mobile sans animation, ses enfants se placent directement dans la grille de la section.
+// Sur mobile sans animation, ses enfants se placent directement dans la grille du cadre.
 .content {
   display: contents;
 

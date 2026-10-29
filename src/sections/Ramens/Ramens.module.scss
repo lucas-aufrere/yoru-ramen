@@ -2,18 +2,29 @@
 
 // Sans animation (JS indisponible ou mouvement réduit), la piste défile horizontalement de façon
 // native, aimantée sur chaque plat. Avec animation, `data-pinned` (posé par pinHorizontalScroll)
-// réduit la section à un écran épinglé, que la piste traverse au rythme du scroll.
+// allonge la section de la distance de défilement (--pin-distance) et colle son cadre, haut
+// d'un écran, en haut de l'écran (position: sticky) : la piste le traverse au rythme du scroll.
 .ramens {
+  color: $color-on-accent;
+  background-color: $color-accent;
+
+  &[data-pinned] {
+    block-size: calc(100svh + var(--pin-distance));
+  }
+}
+
+// Cadre de la section : porte la mise en page, collé en haut une fois la section figée.
+.frame {
   position: relative;
   display: flex;
   flex-direction: column;
   padding-block: $space-section;
   isolation: isolate;
-  color: $color-on-accent;
-  background-color: $color-accent;
 
-  // Le haut laisse la place au header fixe, qui reste par-dessus la section épinglée.
-  &[data-pinned] {
+  // Le haut laisse la place au header fixe, qui reste par-dessus la section figée.
+  .ramens[data-pinned] & {
+    position: sticky;
+    inset-block-start: 0;
     block-size: 100svh;
     padding-block: calc($size-header-offset + $space-stack-s) $space-stack-l;
     overflow: clip;

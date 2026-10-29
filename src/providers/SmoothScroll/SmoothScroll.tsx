@@ -32,14 +32,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       gsap.ticker.add(raf);
       gsap.ticker.lagSmoothing(0);
 
-      // Tactile : le navigateur fait défiler la page sur un autre thread que le JS, si bien
-      // qu'au début d'un épinglage la section est d'abord peinte trop haut avant d'être fixée
-      // (elle « remonte puis revient »). ScrollTrigger reprend donc le scroll tactile sur le
-      // thread JS ; la molette reste gérée par Lenis.
-      ScrollTrigger.normalizeScroll({ type: 'touch', allowNestedScroll: true });
-
       return () => {
-        ScrollTrigger.normalizeScroll(false);
         gsap.ticker.remove(raf);
         gsap.ticker.lagSmoothing(DEFAULT_LAG_THRESHOLD, DEFAULT_LAG_ADJUSTED_DELTA);
         lenis.destroy();

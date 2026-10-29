@@ -1,18 +1,30 @@
 @use 'abstracts' as *;
 
 // Sans animation (JS indisponible ou mouvement réduit) : la vidéo remplit la section, sous le
-// titre et sa légende. Avec animation, `data-pinned` (posé par pinExpandingMedia) épingle la
-// section sur un écran : la vidéo y grandit sous le titre japonais, puis la légende apparaît.
+// titre et sa légende. Avec animation, `data-pinned` (posé par pinExpandingMedia) allonge la
+// section de la distance de lecture (--pin-distance) et colle son cadre, haut d'un écran, en
+// haut de l'écran (position: sticky) : la vidéo y grandit sous le titre japonais, puis la
+// légende apparaît.
 .street {
+  background-color: $color-background;
+
+  &[data-pinned] {
+    block-size: calc(100svh + var(--pin-distance));
+  }
+}
+
+// Cadre de la section : porte la mise en page, collé en haut une fois la section figée.
+.frame {
   position: relative;
   display: grid;
   place-items: center;
   min-block-size: 100svh;
   overflow: clip;
   isolation: isolate;
-  background-color: $color-background;
 
-  &[data-pinned] {
+  .street[data-pinned] & {
+    position: sticky;
+    inset-block-start: 0;
     block-size: 100svh;
   }
 }
