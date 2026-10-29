@@ -34,7 +34,8 @@ type RotateOnScrollOptions = {
 
 /**
  * Fait tourner un élément (badge, sceau) au rythme du scroll, par défaut pendant que sa section
- * quitte le haut du viewport.
+ * quitte le haut du viewport. Pendant la rotation seulement, l'élément est placé sur son propre
+ * calque (will-change) : sinon le navigateur repeint son contenu à chaque image.
  */
 export function rotateOnScroll(targets: gsap.TweenTarget, options: RotateOnScrollOptions) {
   const { trigger, rotation = 180, start = 'top top', end = 'bottom top' } = options;
@@ -42,7 +43,15 @@ export function rotateOnScroll(targets: gsap.TweenTarget, options: RotateOnScrol
   return gsap.to(targets, {
     rotation,
     ease: EASE.none,
-    scrollTrigger: { trigger, start, end, scrub: true },
+    scrollTrigger: {
+      trigger,
+      start,
+      end,
+      scrub: true,
+      onToggle: ({ isActive }) => {
+        gsap.set(targets, { willChange: isActive ? 'transform' : 'auto' });
+      },
+    },
   });
 }
 
