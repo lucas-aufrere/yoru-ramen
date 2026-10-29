@@ -22,7 +22,7 @@ export const MOTION_QUERY = {
 } as const;
 
 // Inclinaison 3D au survol : angle maximal (degrés) et perspective (px) de la scène.
-export const TILT = { angle: 8, perspective: 900 } as const;
+export const TILT = { angle: 6, perspective: 1200 } as const;
 
 // Mêmes seuils que $breakpoints (styles/abstracts/_breakpoints.scss), en rem comme breakpoint-up().
 export const BREAKPOINT_QUERY = {
