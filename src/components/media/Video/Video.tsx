@@ -22,8 +22,13 @@ type VideoProps = {
   playing?: boolean;
 };
 
-// Le navigateur peut refuser la lecture (économie de données) : le poster reste alors affiché.
+// Les navigateurs mobiles n'autorisent la lecture automatique que d'une vidéo muette. Or React ne
+// pose pas toujours la propriété `muted` sur une vidéo rendue côté serveur (l'attribut seul ne
+// suffit pas) : sans cela, la lecture est refusée à la première visite. Le navigateur peut aussi
+// refuser la lecture (économie de données) : le poster reste alors affiché.
 function play(element: HTMLVideoElement) {
+  element.muted = true;
+  element.defaultMuted = true;
   element.play().catch(() => {});
 }
 
