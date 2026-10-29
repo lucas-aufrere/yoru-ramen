@@ -20,14 +20,19 @@ export function splitCharsReveal(target: gsap.DOMTarget, options: SplitRevealOpt
     type: 'chars',
     mask: 'chars',
     aria: 'auto',
-    onSplit: (split) =>
-      gsap.from(split.chars, {
+    onSplit: (split) => {
+      // L'élément peut être masqué en attendant le JS (lib/motionPending.ts) : ses lettres,
+      // désormais cachées sous leur masque, prennent le relais.
+      gsap.set(split.elements, { autoAlpha: 1 });
+
+      return gsap.from(split.chars, {
         yPercent: 110,
         duration: DURATION.slow,
         ease: EASE.expo,
         stagger,
         delay,
-      }),
+      });
+    },
   });
 }
 
@@ -52,6 +57,10 @@ export function splitWordsColorReveal(target: gsap.DOMTarget, options: ColorReve
     onSplit: (split) => {
       const [element] = split.elements;
       const fromColor = getComputedStyle(element).getPropertyValue('--reveal-from-color').trim();
+
+      // L'élément peut être masqué en attendant le JS (lib/motionPending.ts) : ses mots,
+      // désormais dans leur couleur éteinte, prennent le relais.
+      gsap.set(element, { autoAlpha: 1 });
 
       return gsap.from(split.words, {
         color: fromColor,

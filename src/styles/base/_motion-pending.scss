@@ -1,0 +1,24 @@
+// Avant que GSAP ne prenne la main (attribut posé par un script en tête de page, voir
+// lib/motionPending.ts), les éléments qui apparaissent en animation restent masqués : sinon ils
+// s'affichent, disparaissent le temps que l'animation démarre, puis réapparaissent.
+// `visibility` (et non `opacity`) : GSAP lit l'opacité finale des éléments au démarrage de leur
+// animation, elle doit donc rester intacte ; l'animation rend ensuite l'élément visible par un
+// style en ligne (autoAlpha), prioritaire sur cette règle. Liste à compléter pour chaque nouvelle
+// cible d'apparition (revealFadeUp, revealCascade, splitCharsReveal, splitWordsColorReveal…).
+[data-motion-pending]
+  :where(
+    [data-anim='eyebrow'],
+    [data-anim='title'],
+    [data-anim='intro'],
+    [data-anim='statement'],
+    [data-anim='details'],
+    [data-anim='menu-tab'],
+    [data-anim='menu-item'],
+    [data-anim='combo'],
+    [data-anim='action'],
+    [data-anim='info'],
+    [data-anim='slogan'],
+    [data-anim='column']
+  ) {
+  visibility: hidden;
+}

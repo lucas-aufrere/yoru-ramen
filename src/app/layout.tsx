@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { anchors } from '@/content/navigation';
 import { seo } from '@/content/seo';
+import { MOTION_PENDING_SCRIPT } from '@/lib/motionPending';
 import { SmoothScroll } from '@/providers/SmoothScroll';
 
 import '@/styles/globals.scss';
@@ -46,12 +47,18 @@ export const metadata: Metadata = seo;
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
+    // suppressHydrationWarning : le script de tête ajoute un attribut à <html> avant l'hydratation.
     <html
       lang="fr"
       className={[fontDisplay, fontText, fontMono, fontJapanese]
         .map((font) => font.variable)
         .join(' ')}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Masque les éléments animés jusqu'au démarrage de GSAP (voir lib/motionPending.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_PENDING_SCRIPT }} />
+      </head>
       <body>
         <SmoothScroll>
           <SkipLink targetId={anchors.main} />
