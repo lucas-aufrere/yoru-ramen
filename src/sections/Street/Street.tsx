@@ -41,9 +41,7 @@ export function Street() {
   return (
     <section ref={sectionRef} className={styles.street} aria-labelledby="street-title">
       <div ref={mediaRef} className={styles.media}>
-        <div className={styles.blur}>
-          <Video video={videos.street.osaka} decorative playing={isVideoPlaying} />
-        </div>
+        <Video video={videos.street.osaka} decorative playing={isVideoPlaying} />
       </div>
 
       <div className={styles.content}>
