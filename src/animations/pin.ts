@@ -3,6 +3,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { EASE, EXPAND, FOCUS, PIN_LENGTH } from './config';
 
+// Réglages communs aux ScrollTriggers qui épinglent une section : lecture liée au scroll,
+// positions recalculées au redimensionnement, et épinglage un peu anticipé selon la vitesse
+// du scroll pour qu'aucun saut ne soit visible au moment où la section se fige.
+const PIN_TRIGGER = {
+  pin: true,
+  anticipatePin: 1,
+  scrub: true,
+  invalidateOnRefresh: true,
+} as const;
+
 /**
  * Exécute `setup` dans un contexte imbriqué, annulé avec celui de l'appelant, et pose
  * `data-pinned` sur la section le temps de l'animation pour que son CSS passe en mise en page
@@ -89,9 +99,7 @@ export function pinWithScrollingContent(section: HTMLElement, options: PinnedCon
         trigger: section,
         start: 'top top',
         end: () => `+=${window.innerHeight * length}`,
-        pin: true,
-        scrub: true,
-        invalidateOnRefresh: true,
+        ...PIN_TRIGGER,
         onRefresh: () => {
           measure();
           updateFocus();
@@ -148,9 +156,7 @@ export function pinHorizontalScroll(section: HTMLElement, { track }: HorizontalS
           trigger: section,
           start: 'top top',
           end: () => `+=${getDistance()}`,
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true,
+          ...PIN_TRIGGER,
         },
       },
     );
@@ -209,9 +215,7 @@ export function pinExpandingMedia(section: HTMLElement, options: ExpandingMediaO
           trigger: section,
           start: 'top top',
           end: () => `+=${window.innerHeight * length}`,
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true,
+          ...PIN_TRIGGER,
         },
       })
       .fromTo(media, { scale: 0 }, { scale: 1, duration: EXPAND.grow }, 0)
